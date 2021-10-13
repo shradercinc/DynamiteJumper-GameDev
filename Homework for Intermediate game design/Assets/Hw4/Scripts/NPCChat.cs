@@ -28,7 +28,8 @@ public class NPCChat : MonoBehaviour
         }
 
 
-        if (Mathf.Abs(NPCpos.transform.position.x) - Mathf.Abs(p1pos.transform.position.x) < 4 && Mathf.Abs(NPCpos.transform.position.y) - Mathf.Abs(p1pos.transform.position.y) < 5)
+        //if (Mathf.Abs(NPCpos.transform.position.x) - Mathf.Abs(p1pos.transform.position.x) < 4 && Mathf.Abs(NPCpos.transform.position.y) - Mathf.Abs(p1pos.transform.position.y) < 5)
+        if(Vector2.Distance(NPCpos.transform.position, p1pos.transform.position) < 4)       
         {
             if (Input.GetKeyDown(KeyCode.E)) 
             {
