@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     private BoxCollider2D bc;
     private Transform PlPos;
 
+    public static int lives = 5;
+    
 
     public float speed = 5.0f;
     float moveX = 1.0f;
