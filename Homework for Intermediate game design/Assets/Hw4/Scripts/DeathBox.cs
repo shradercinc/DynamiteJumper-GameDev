@@ -20,8 +20,15 @@ public class DeathBox : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.transform.position = new Vector3(x, y, z);
+            
             Player.lives--;
+            if (Player.lives == 0 || Player.lives == 0)
+            {
+                return;
+            } else
+            {
+                collision.transform.position = new Vector3(x, y, z);
+            }
         }
     }
 }

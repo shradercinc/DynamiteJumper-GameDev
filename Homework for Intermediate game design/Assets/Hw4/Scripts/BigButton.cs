@@ -7,10 +7,13 @@ public class BigButton : MonoBehaviour
     public Transform bridge;
     bool extend = false;
     public float bridgeS = 7.5f;
+    public float bridgeMin = 0;
+    public float bridgeMax = 4.6f;
+    public float bridgeY = -4.5f;
     // Start is called before the first frame update
     void Start()
     {
-        
+        bridge.transform.position = new Vector3(bridgeMin, bridgeY, 3);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -33,21 +36,21 @@ public class BigButton : MonoBehaviour
         {
             Debug.Log("Extended");
         }
-        if (extend == true && bridge.transform.position.x < 4.6)
+        if (extend == true && bridge.transform.position.x < bridgeMax)
         {
             bridge.transform.Translate(Vector2.right * Time.deltaTime * bridgeS);
         }
-        else if (extend == true && bridge.transform.position.x >= 4.6)
+        else if (extend == true && bridge.transform.position.x >= bridgeMax)
         {
-            bridge.transform.position = new Vector3(4.6f,-4.5f,111.0f);
+            bridge.transform.position = new Vector3(bridgeMax,bridgeY,3.0f);
         }
-        if (extend == false && bridge.transform.position.x > 0)
+        if (extend == false && bridge.transform.position.x > bridgeMin)
         {
             bridge.transform.Translate(Vector2.left * Time.deltaTime * bridgeS);
         }
-        else if (extend == false && bridge.transform.position.x <= 0)
+        else if (extend == false && bridge.transform.position.x <= bridgeMin)
         {
-            bridge.transform.position = new Vector3(0.0f, -4.5f, 111.0f);
+            bridge.transform.position = new Vector3(bridgeMin, bridgeY, 3.0f);
         }
 
     }

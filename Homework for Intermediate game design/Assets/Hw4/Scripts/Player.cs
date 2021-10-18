@@ -5,12 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
     private BoxCollider2D bc;
     private Transform PlPos;
 
     public static int lives = 5;
-    
+
+    public GameObject dynamite;
 
     public float speed = 5.0f;
     float moveX = 1.0f;
@@ -18,6 +19,8 @@ public class Player : MonoBehaviour
 
     bool canJump = false;
     private float DeathTimer = 0.0f;
+    public static bool canExp = true;
+
 
     private void Awake()
     {
@@ -70,6 +73,13 @@ public class Player : MonoBehaviour
     {
         moveX = Input.GetAxis("Horizontal");
         jump();
+        if (canExp == true)
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                Object.Instantiate(dynamite, new Vector3(PlPos.transform.position.x, PlPos.transform.position.y, -2), dynamite.transform.rotation);
+            }
+        }
   
     }
 }

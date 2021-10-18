@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class GameOver : MonoBehaviour
+public class SceneInbetween : MonoBehaviour
 {
-    public string level;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,10 +13,6 @@ public class GameOver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            Player.lives = 5;
-            SceneManager.LoadScene(level);
-        }
+        
     }
 }
