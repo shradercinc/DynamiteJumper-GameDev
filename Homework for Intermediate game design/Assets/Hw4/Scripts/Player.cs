@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class Player : MonoBehaviour
     public float jumpSpeed = 8.5f;
 
     bool canJump = false;
-
+    private float DeathTimer = 0.0f;
 
     private void Awake()
     {
@@ -46,6 +47,14 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         rb.velocity = new Vector2(moveX * speed, rb.velocity.y);
+        if (lives <= 0)
+        {
+            DeathTimer++;
+        }
+        if (DeathTimer >= 1.5 * 50)
+        {
+            SceneManager.LoadScene("Homework4Scene0");
+        }
     }
 
     void jump()
@@ -61,5 +70,6 @@ public class Player : MonoBehaviour
     {
         moveX = Input.GetAxis("Horizontal");
         jump();
+  
     }
 }

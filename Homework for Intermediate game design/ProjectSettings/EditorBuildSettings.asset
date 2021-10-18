@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Hw4/Homework 4.unity
+    path: Assets/Hw4/Homework Scenes/Homework4Scene1.unity
     guid: b903a22780086c848bfdec16a4eda9cd
+  - enabled: 1
+    path: Assets/Hw4/Homework Scenes/Homework4Scene0.unity
+    guid: d59b6d6cc8692334aa690e56f4044df0
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
