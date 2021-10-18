@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 501837722174771427}
   - component: {fileID: 501837722174771425}
   - component: {fileID: 501837722174771424}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PC
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cc44921b3ff58944bef70f52cdf276c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
+  dynamite: {fileID: 0}
   speed: 7
   jumpSpeed: 13
 --- !u!50 &501837722174771425
