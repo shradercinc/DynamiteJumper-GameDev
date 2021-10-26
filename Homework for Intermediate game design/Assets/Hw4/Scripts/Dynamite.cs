@@ -75,6 +75,7 @@ public class Dynamite : MonoBehaviour
         }
         if (expT > 0.75 * 50)
         {
+            Player.numBoom--;
             Destroy(gameObject);
         }
 

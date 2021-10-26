@@ -19,7 +19,8 @@ public class Player : MonoBehaviour
 
     bool canJump = false;
     private float DeathTimer = 0.0f;
-    public static bool canExp = true;
+    public static bool canExp = false;
+    public static int numBoom = 0;
 
 
     private void Awake()
@@ -44,6 +45,14 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Wheel"))
         {
             canJump = true;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("DynoBox"))
+        {
+            canExp = true;
         }
     }
 
@@ -75,8 +84,10 @@ public class Player : MonoBehaviour
         jump();
         if (canExp == true)
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            Debug.Log("AAAAAA");
+            if (Input.GetKeyDown(KeyCode.Q) && numBoom < 3)
             {
+                numBoom++;
                 Object.Instantiate(dynamite, new Vector3(PlPos.transform.position.x, PlPos.transform.position.y, -2), dynamite.transform.rotation);
             }
         }
