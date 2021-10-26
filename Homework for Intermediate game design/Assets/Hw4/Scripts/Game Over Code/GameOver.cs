@@ -18,6 +18,7 @@ public class GameOver : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))
         {
             Player.lives = 5;
+            Player.numBoom = 0;
             SceneManager.LoadScene(level);
         }
     }

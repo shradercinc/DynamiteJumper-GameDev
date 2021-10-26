@@ -7,6 +7,10 @@ public class NPCChat : MonoBehaviour
 {
     public Transform p1pos;
     public Transform NPCpos;
+    public Sprite F1;
+    public Sprite F2;
+    public SpriteRenderer NPCspr;
+    public float timer;
     private TMP_Text myText;
     private bool active = false;
     // Start is called before the first frame update
@@ -16,9 +20,29 @@ public class NPCChat : MonoBehaviour
         myText.enabled = false;
     }
 
+    private void FixedUpdate()
+    {
+        timer++;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (timer < 0.75 * 50)
+        {
+            NPCspr.sprite = F1;
+        }
+        if (timer > 0.75 * 50) 
+        {
+            NPCspr.sprite = F2;
+        }
+        if (timer > 1.5 * 50)
+        {
+            timer = 0;
+        }
+
+
+
         if (active == true)
         {
             myText.enabled = true;

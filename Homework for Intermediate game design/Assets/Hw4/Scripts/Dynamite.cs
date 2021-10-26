@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Dynamite : MonoBehaviour
 {
-    private float detT = 0;
+    public static float detT = 0;
+    public static float detM = 4 * 50;
     private float expT = 0;
     public Transform P1;
     public Sprite sprNew;
@@ -48,12 +49,12 @@ public class Dynamite : MonoBehaviour
         {
             ren.color = new Color(0.84f, 0.84f, 0.84f);
         }
-        if (detT > (3 * 50) && detT < (4 * 50))
+        if (detT > (3 * 50) && detT < (detM))
         {
             ren.color = new Color(1, 1, 1);
         }
 
-        if (detT > (4 * 50))
+        if (detT > (detM))
         {
             rb.mass = 100000000;
             pos.transform.localScale = new Vector3(0, 0, 1);
@@ -75,7 +76,7 @@ public class Dynamite : MonoBehaviour
         }
         if (expT > 0.75 * 50)
         {
-            Player.numBoom--;
+            Player.numBoom = 0;
             Destroy(gameObject);
         }
 

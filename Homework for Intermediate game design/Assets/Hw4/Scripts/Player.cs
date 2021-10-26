@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     public static bool canExp = false;
     public static int numBoom = 0;
 
+    public float detTM = 5 * 50;
+    private float detTime = 0;
 
     private void Awake()
     {
@@ -67,6 +69,10 @@ public class Player : MonoBehaviour
         {
             SceneManager.LoadScene("Homework4Scene0");
         }
+        if (numBoom > 0 && canExp == true)
+        {
+            detTime++;
+        }
     }
 
     void jump()
@@ -84,12 +90,20 @@ public class Player : MonoBehaviour
         jump();
         if (canExp == true)
         {
-            Debug.Log("AAAAAA");
-            if (Input.GetKeyDown(KeyCode.Q) && numBoom < 3)
+            if (Input.GetKeyDown(KeyCode.Q) && Player.numBoom == 1 && detTime > detTM)
             {
-                numBoom++;
-                Object.Instantiate(dynamite, new Vector3(PlPos.transform.position.x, PlPos.transform.position.y, -2), dynamite.transform.rotation);
+                Dynamite.detT = Dynamite.detM + 5;
+                //Debug.Log("EXPLODE");
             }
+            if (Input.GetKeyDown(KeyCode.Q) && Player.numBoom == 0)
+            {
+                numBoom = 1;
+                Object.Instantiate(dynamite, new Vector3(PlPos.transform.position.x, PlPos.transform.position.y, -2), dynamite.transform.rotation);
+                detTime = 0;
+                Debug.Log(detTime);
+                Dynamite.detT = 0;
+            }
+
         }
   
     }
