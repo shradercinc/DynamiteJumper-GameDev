@@ -2900,18 +2900,18 @@ Transform:
   - {fileID: 677500059}
   - {fileID: 64630136}
   - {fileID: 784342982}
-  - {fileID: 1061083939}
   - {fileID: 403696351}
+  - {fileID: 1061083939}
   - {fileID: 35064403}
   - {fileID: 413353589}
+  - {fileID: 783259148}
   - {fileID: 592289458}
-  - {fileID: 93684674}
   - {fileID: 1045488904}
   - {fileID: 1157010463}
-  - {fileID: 783259148}
+  - {fileID: 93684674}
   - {fileID: 901729776}
-  - {fileID: 1520768227}
   - {fileID: 1029027999}
+  - {fileID: 1520768227}
   - {fileID: 1996824163}
   - {fileID: 1675116646}
   - {fileID: 5083656}
@@ -7449,6 +7449,22 @@ PrefabInstance:
     - target: {fileID: 501837722174771452, guid: 9d92634c7aa897d4796997beee7e7014, type: 3}
       propertyPath: m_Name
       value: PC
+      objectReference: {fileID: 0}
+    - target: {fileID: 501837722174771453, guid: 9d92634c7aa897d4796997beee7e7014, type: 3}
+      propertyPath: m_Size.x
+      value: 1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 501837722174771453, guid: 9d92634c7aa897d4796997beee7e7014, type: 3}
+      propertyPath: m_Size.y
+      value: 1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 501837722174771453, guid: 9d92634c7aa897d4796997beee7e7014, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: db7cb65da437fe94ab45cb42613c3493, type: 3}
+    - target: {fileID: 501837722174771453, guid: 9d92634c7aa897d4796997beee7e7014, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d92634c7aa897d4796997beee7e7014, type: 3}

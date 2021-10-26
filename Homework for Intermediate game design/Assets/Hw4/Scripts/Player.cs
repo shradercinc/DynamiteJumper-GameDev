@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D bc;
     private Transform PlPos;
+    private SpriteRenderer ren;
 
     public static int lives = 5;
 
@@ -22,14 +23,31 @@ public class Player : MonoBehaviour
     public static bool canExp = false;
     public static int numBoom = 0;
 
-    public float detTM = 5 * 50;
+    public float detTM = 0.2f;
     private float detTime = 0;
+
+    private int animT;
+
+    public Sprite l1;
+    public Sprite l2;
+    public Sprite l3;
+
+    public Sprite r1;
+    public Sprite r2;
+    public Sprite r3;
+
+    public Sprite m1;
+    public Sprite m2;
+    public Sprite m3;
+
+
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
         PlPos = GetComponent<Transform>();
+        ren = GetComponent<SpriteRenderer>();
 
     }
     void Start()
@@ -69,10 +87,9 @@ public class Player : MonoBehaviour
         {
             SceneManager.LoadScene("Homework4Scene0");
         }
-        if (numBoom > 0 && canExp == true)
-        {
-            detTime++;
-        }
+
+        detTime++;
+        animT++;    
     }
 
     void jump()
@@ -86,18 +103,97 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (animT > 1 * 50)
+        {
+            animT = 0;
+        }
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
+            if (animT < 0.25f * 50)
+            {
+                ren.sprite = r1;
+            }
+            if (animT > 0.25f * 50 && animT < 0.5f * 50)
+            {
+                ren.sprite = r2;
+            }
+            if (animT > 0.5f * 50 && animT < 0.75f * 50)
+            {
+                ren.sprite = r3;
+            }
+            if (animT > 0.75f * 50)
+            {
+                ren.sprite = r2;
+            }
+        }
+        else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        {
+            if (animT < 0.25f * 50)
+            {
+                ren.sprite = l1;
+            }
+            if (animT > 0.25f * 50 && animT < 0.5f * 50)
+            {
+                ren.sprite = l2;
+            }
+            if (animT > 0.5f * 50 && animT < 0.75f * 50)
+            {
+                ren.sprite = l3;
+            }
+            if (animT > 0.75f * 50)
+            {
+                ren.sprite = l2;
+            }
+        }
+        else
+        {
+            if (animT < 0.25f * 50)
+            {
+                ren.sprite = m1;
+            }
+            if (animT > 0.25f * 50 && animT < 0.5f * 50)
+            {
+                ren.sprite = m2;
+            }
+            if (animT > 0.5f * 50 && animT < 0.75f * 50)
+            {
+                ren.sprite = m3;
+            }
+            if (animT > 0.75f * 50)
+            {
+                ren.sprite = m2;
+            }
+        }
+
+
         moveX = Input.GetAxis("Horizontal");
         jump();
         if (canExp == true)
         {
-            if (Input.GetKeyDown(KeyCode.Q) && Player.numBoom == 1 && detTime > detTM)
+            Debug.Log("dettime = " + detTime);
+            Debug.Log("Min = " + detTM);
+            //Debug.Log("numBoom = " + numBoom);
+            //Debug.Log("det time = " + detTime);
+            if (Input.GetKeyDown(KeyCode.Q))
             {
-                Dynamite.detT = Dynamite.detM + 5;
-                //Debug.Log("EXPLODE");
+                Debug.Log("Button Pressed");
+                if (Player.numBoom == 1)
+                {
+                    Debug.Log("NumBoom = 1");
+                    if (detTime > (detTM / 5) / 2)
+                    {
+                        Debug.Log("in time frame");
+                        if(Dynamite.detT <= Dynamite.detM)
+                        {
+                            Dynamite.detT = Dynamite.detM + 5;
+                            Debug.Log("EXPLODE");
+                        }
+                    }
+                }
             }
             if (Input.GetKeyDown(KeyCode.Q) && Player.numBoom == 0)
             {
-                numBoom = 1;
+                Player.numBoom = 1;
                 Object.Instantiate(dynamite, new Vector3(PlPos.transform.position.x, PlPos.transform.position.y, -2), dynamite.transform.rotation);
                 detTime = 0;
                 Debug.Log(detTime);

@@ -26,6 +26,9 @@ public class Dynamite : MonoBehaviour
         pos = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         ren.color = new Color(0.6f, 0.6f, 0.6f);
+        expT = 0;
+        Dynamite.detT = 0;
+        Player.numBoom = 1;
     }
 
     private void FixedUpdate()
