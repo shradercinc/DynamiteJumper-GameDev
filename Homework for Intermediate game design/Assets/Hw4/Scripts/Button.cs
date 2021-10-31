@@ -21,7 +21,7 @@ public class Button : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector2.Distance(pos.transform.position, p1pos.transform.position) < 2)
+        if (Vector2.Distance(pos.transform.position, p1pos.transform.position) < 2 && box.transform.position.y < -7.5)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {

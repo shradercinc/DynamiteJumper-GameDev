@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     private BoxCollider2D bc;
     private Transform PlPos;
     private SpriteRenderer ren;
+    private AudioSource aud;
 
     public static int lives = 5;
 
@@ -16,9 +17,16 @@ public class Player : MonoBehaviour
 
     public float speed = 5.0f;
     float moveX = 1.0f;
-    public float jumpSpeed = 8.5f;
 
+    public float jumpSpeed = 0.5f;
+    public float IjumpSpeed = 2.0f;
+    public float JumpBM = 0.1f;
     bool canJump = false;
+    bool allowance = false;
+    float allowT = 0.0f;
+    float JumpBonusT = 0.0f;
+    int jumping = 0;
+
     private float DeathTimer = 0.0f;
     public static bool canExp = false;
     public static int numBoom = 0;
@@ -26,7 +34,8 @@ public class Player : MonoBehaviour
     public float detTM = 0.2f;
     private float detTime = 0;
 
-    private int animT;
+    private float animT;
+    private float JAnimT = 0.4f;
 
     public Sprite l1;
     public Sprite l2;
@@ -40,6 +49,14 @@ public class Player : MonoBehaviour
     public Sprite m2;
     public Sprite m3;
 
+    public Sprite j1;
+    public Sprite j2;
+    public Sprite j3;
+
+    public AudioClip walk;
+    private float walkT = 0;
+    public AudioClip jumpSnd;
+
 
 
     private void Awake()
@@ -48,12 +65,16 @@ public class Player : MonoBehaviour
         bc = GetComponent<BoxCollider2D>();
         PlPos = GetComponent<Transform>();
         ren = GetComponent<SpriteRenderer>();
+        aud = GetComponent<AudioSource>();
 
     }
-    void Start()
+
+    private void OnCollisionExit2D(Collision2D collision)
     {
-
-
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            allowance = true;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -61,10 +82,26 @@ public class Player : MonoBehaviour
         if ((collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Box")) && PlPos.transform.position.y > (collision.gameObject.transform.position.y + collision.gameObject.transform.localScale.y - 0.5))
         {
             canJump = true;
+            allowance = false;
+
         }
         if (collision.gameObject.CompareTag("Wheel"))
         {
             canJump = true;
+            allowance = false;
+
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if ((collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Box")) && PlPos.transform.position.y > (collision.gameObject.transform.position.y + collision.gameObject.transform.localScale.y - 0.5))
+        {
+            allowance = false;
+        }
+        if (collision.gameObject.CompareTag("Wheel"))
+        {
+            allowance = false;
         }
     }
 
@@ -78,6 +115,20 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+
+        if (jumping == 1 && JumpBonusT <= 0 && canJump == true)
+        {
+            aud.PlayOneShot(jumpSnd);
+            canJump = false;
+            jumping = 2;
+            rb.AddForce(Vector2.up * IjumpSpeed, ForceMode2D.Impulse);
+            JumpBonusT = JumpBM * 50;
+        }
+        if (jumping == 2 && JumpBonusT > 0)
+        {
+            rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+        }
+
         rb.velocity = new Vector2(moveX * speed, rb.velocity.y);
         if (lives <= 0)
         {
@@ -89,25 +140,82 @@ public class Player : MonoBehaviour
         }
 
         detTime++;
-        animT++;    
+        animT++;
+        JAnimT++;
+        JumpBonusT--;
+        walkT++;
+
+        if (allowance == false)
+        {
+            allowT = 0;
+        }
+        else
+        {
+            allowT++;
+        }
     }
 
     void jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && canJump == true)
+        if (Input.GetKeyDown(KeyCode.Space) && canJump == true && allowT < 0.1 * 50)
         {
-            canJump = false;
-            rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+            jumping = 1;
+            JAnimT = 0;
         }
+        if (Input.GetKeyUp(KeyCode.Space))    
+        {
+            jumping = 0;
+        }
+
     }
 
     void Update()
     {
+        //                              ANIMATION CODE
         if (animT > 1 * 50)
         {
             animT = 0;
         }
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+
+        if (JAnimT < 0.2f * 50 && (allowT > 0.1 * 50 || canJump == false))
+        {
+            ren.sprite = j1;
+        }
+        if (JAnimT > 0.2f * 50 && JAnimT < 0.4f * 50 && (allowT > 0.1 * 50 || canJump == false))
+        {
+            ren.sprite = j2;
+        }
+        if (JAnimT > 0.4f * 50 && (allowT > 0.1 * 50 || canJump == false))
+        {
+            ren.sprite = j3;
+        }
+
+        /*
+        if ((allowT < 0.1 * 50 && canJump == true) && (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && walkT > 0.5 * 50)
+        {
+            if (animT < 0.25f * 50)
+            {
+                aud.PlayOneShot(walk);
+                walkT = 0;
+            }
+            if (animT > 0.25f * 50 && animT < 0.5f * 50)
+            {
+                aud.PlayOneShot(walk);
+                walkT = 0;
+            }
+            if (animT > 0.5f * 50 && animT < 0.75f * 50)
+            {
+                aud.PlayOneShot(walk);
+                walkT = 0;
+            }
+            if (animT > 0.75f * 50)
+            {
+                aud.PlayOneShot(walk);
+                walkT = 0;
+            }
+        }
+        */
+        if ((allowT < 0.1 * 50 && canJump == true) && (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)))
         {
             if (animT < 0.25f * 50)
             {
@@ -126,7 +234,7 @@ public class Player : MonoBehaviour
                 ren.sprite = r2;
             }
         }
-        else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        else if ((allowT < 0.1 * 50 && canJump == true) && (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)))
         {
             if (animT < 0.25f * 50)
             {
@@ -145,7 +253,7 @@ public class Player : MonoBehaviour
                 ren.sprite = l2;
             }
         }
-        else
+        else if (allowT < 0.1 * 50 && canJump == true)
         {
             if (animT < 0.25f * 50)
             {
@@ -167,19 +275,18 @@ public class Player : MonoBehaviour
 
 
         moveX = Input.GetAxis("Horizontal");
+
         jump();
+
+        //                              DYNAMITE CODE
         if (canExp == true)
         {
-            Debug.Log("dettime = " + detTime);
-            Debug.Log("Min = " + detTM);
-            //Debug.Log("numBoom = " + numBoom);
-            //Debug.Log("det time = " + detTime);
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 Debug.Log("Button Pressed");
                 if (Player.numBoom == 1)
                 {
-                    Debug.Log("NumBoom = 1");
+                    Debug.Log("One explosive on screen");
                     if (detTime > (detTM / 5) / 2)
                     {
                         Debug.Log("in time frame");
@@ -196,7 +303,6 @@ public class Player : MonoBehaviour
                 Player.numBoom = 1;
                 Object.Instantiate(dynamite, new Vector3(PlPos.transform.position.x, PlPos.transform.position.y, -2), dynamite.transform.rotation);
                 detTime = 0;
-                Debug.Log(detTime);
                 Dynamite.detT = 0;
             }
 

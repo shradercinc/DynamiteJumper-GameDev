@@ -18,6 +18,10 @@ public class Dynamite : MonoBehaviour
     private float scalex = 0;
     private float scaley = 0;
 
+    private AudioSource AS;
+    public AudioClip explode;
+    private bool expAudio = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +31,7 @@ public class Dynamite : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         ren.color = new Color(0.6f, 0.6f, 0.6f);
         expT = 0;
+        AS = GetComponent<AudioSource>();
         Dynamite.detT = 0;
         Player.numBoom = 1;
     }
@@ -70,6 +75,11 @@ public class Dynamite : MonoBehaviour
         if (exploded == true)
         {
             pos.transform.localScale = new Vector3(scalex, scaley, 1);
+            if (expAudio == false)
+            {
+                expAudio = true;
+                AS.PlayOneShot(explode);
+            }
         }
 
         if (expT > 0.4 * 50)
