@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class ColdCollect : MonoBehaviour
 {
+
     public Transform P1Pos;
     public string level;
     private Transform pos;
@@ -12,7 +13,7 @@ public class ColdCollect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pos = GetComponent<Transform>();   
+        pos = GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -24,6 +25,7 @@ public class ColdCollect : MonoBehaviour
             {
                 Player.lives = 5;
                 SceneManager.LoadScene(level);
+                
             }
         }
     }

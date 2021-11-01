@@ -25,26 +25,28 @@ public class Button : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Vector2.Distance(pos.transform.position, p1pos.transform.position) < 2)
         {
-            if (Vector2.Distance(pos.transform.position, p1pos.transform.position) < 2 && box.transform.position.y < -7.5)
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                setx = emitter.transform.position.x;
-                sety = emitter.transform.position.y;
-                box.transform.position = new Vector3(setx, sety, 0);
-                boxrb.velocity = Vector2.zero;
+                if (box.transform.position.y < -7.5)
+                {
+                    setx = emitter.transform.position.x;
+                    sety = emitter.transform.position.y;
+                    box.transform.position = new Vector3(setx, sety, 0);
+                    boxrb.velocity = Vector2.zero;
+                }
+                if (presAud == false)
+                {
+                    presAud = true;
+                    aud.PlayOneShot(click);
+                }
+            }
 
-            }
-            if (presAud == false)
-            {
-                presAud = true;
-                aud.PlayOneShot(click);
-            }
-            if (Input.GetKeyUp(KeyCode.E))
-            {
-                presAud = false;
-            }
         }
-
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            presAud = false;
+        }
     }
 }
