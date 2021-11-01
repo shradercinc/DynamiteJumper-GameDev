@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     public static int lives = 5;
 
     public GameObject dynamite;
+    public GameObject hissSND;
 
     public float speed = 5.0f;
     float moveX = 1.0f;
@@ -56,7 +57,8 @@ public class Player : MonoBehaviour
     public AudioClip walk;
     private float walkT = 0;
     public AudioClip jumpSnd;
-
+    public AudioClip explode;
+    public static bool expAudio = true;
 
 
     private void Awake()
@@ -294,17 +296,30 @@ public class Player : MonoBehaviour
                         {
                             Dynamite.detT = Dynamite.detM + 5;
                             Debug.Log("EXPLODE");
+                            if(expAudio == false)
+                            {
+                                expAudio = true;
+                                aud.PlayOneShot(explode); 
+                            }    
                         }
                     }
                 }
+            }
+            if (Dynamite.detT > Dynamite.detM && expAudio == false)
+            {
+                expAudio = true;
+                aud.PlayOneShot(explode);               
             }
             if (Input.GetKeyDown(KeyCode.Q) && Player.numBoom == 0)
             {
                 Player.numBoom = 1;
                 Object.Instantiate(dynamite, new Vector3(PlPos.transform.position.x, PlPos.transform.position.y, -2), dynamite.transform.rotation);
+                Object.Instantiate(hissSND, new Vector3(PlPos.transform.position.x, PlPos.transform.position.y, -2), dynamite.transform.rotation);
                 detTime = 0;
                 Dynamite.detT = 0;
+                expAudio = false;
             }
+
 
         }
   

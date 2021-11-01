@@ -19,8 +19,8 @@ public class Dynamite : MonoBehaviour
     private float scaley = 0;
 
     private AudioSource AS;
-    public AudioClip explode;
-    private bool expAudio = false;
+    //public AudioClip explode;
+    //private bool expAudio = false;
 
 
     // Start is called before the first frame update
@@ -75,11 +75,13 @@ public class Dynamite : MonoBehaviour
         if (exploded == true)
         {
             pos.transform.localScale = new Vector3(scalex, scaley, 1);
+            /*
             if (expAudio == false)
             {
                 expAudio = true;
                 AS.PlayOneShot(explode);
             }
+            */
         }
 
         if (expT > 0.4 * 50)

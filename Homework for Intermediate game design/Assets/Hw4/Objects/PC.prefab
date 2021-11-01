@@ -99,7 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cc44921b3ff58944bef70f52cdf276c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dynamite: {fileID: 0}
+  dynamite: {fileID: 1038002712411864731, guid: bbe37a0db8fcc88419d53b7150e6452d, type: 3}
+  hissSND: {fileID: 5463834601932199158, guid: b6c96857c02be3042aadb09781601d48, type: 3}
   speed: 7
   jumpSpeed: 0.5
   IjumpSpeed: 2
@@ -118,7 +119,8 @@ MonoBehaviour:
   j2: {fileID: 21300000, guid: 9f6ea661acfdcfb4bb71a7da9f6efbf4, type: 3}
   j3: {fileID: 21300000, guid: badce287ff346f94481d8a41b99f8d5e, type: 3}
   walk: {fileID: 8300000, guid: 54d006cd8adb28d4f80f875e6ff6fc5a, type: 3}
-  jumpSnd: {fileID: 8300000, guid: 54d006cd8adb28d4f80f875e6ff6fc5a, type: 3}
+  jumpSnd: {fileID: 8300000, guid: 9ac873866f5ee854b8dd79ac75eb38ce, type: 3}
+  explode: {fileID: 8300000, guid: 98406a6435d19db4aa9515f10baf766a, type: 3}
 --- !u!50 &501837722174771425
 Rigidbody2D:
   serializedVersion: 4

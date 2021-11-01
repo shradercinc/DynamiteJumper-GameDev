@@ -5,6 +5,9 @@ using UnityEngine;
 public class BigButtonNeg : MonoBehaviour
 {
     public Transform bridge;
+    private AudioSource aud;
+    public AudioClip click;
+    bool extendAud = false;
     bool extend = false;
     public float bridgeS = 7.5f;
     public float bridgeMin = -13.2f;
@@ -14,6 +17,7 @@ public class BigButtonNeg : MonoBehaviour
     void Start()
     {
         bridge.position = new Vector3(bridgeMin,bridgeY,3);
+        aud = GetComponent<AudioSource>();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -21,12 +25,22 @@ public class BigButtonNeg : MonoBehaviour
         if (!collision.CompareTag("Floor"))
         {
             extend = true;
+            if (extendAud == false)
+            {
+                extendAud = true;
+                aud.PlayOneShot(click);
+            }
         }
 
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         extend = false;
+        if (extendAud == true)
+        {
+            extendAud = false;
+            aud.PlayOneShot(click);
+        }
     }
 
     // Update is called once per frame
