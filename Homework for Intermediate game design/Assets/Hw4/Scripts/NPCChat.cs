@@ -13,16 +13,20 @@ public class NPCChat : MonoBehaviour
     public float timer;
     private TMP_Text myText;
     private bool active = false;
+
+
     // Start is called before the first frame update
     void Awake()
     {
         myText = GetComponent<TMP_Text>();
         myText.enabled = false;
+
     }
 
     private void FixedUpdate()
     {
         timer++;
+
     }
 
     // Update is called once per frame
@@ -63,6 +67,7 @@ public class NPCChat : MonoBehaviour
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.Space))
         {
             active = false;
+
         }
     }
 }

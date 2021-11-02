@@ -9,6 +9,7 @@ TagManager:
   - Wheel
   - ClickButton
   - DynoBox
+  - GridSystem
   layers:
   - Default
   - TransparentFX

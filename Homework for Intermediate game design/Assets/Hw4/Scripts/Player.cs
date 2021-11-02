@@ -38,6 +38,8 @@ public class Player : MonoBehaviour
     private float animT;
     private float JAnimT = 0.4f;
 
+    public static float deathT = 0.0f;
+
     public Sprite l1;
     public Sprite l2;
     public Sprite l3;
@@ -138,7 +140,7 @@ public class Player : MonoBehaviour
         }
         if (DeathTimer >= 1.5 * 50)
         {
-            SceneManager.LoadScene("Homework4Scene0");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         detTime++;
@@ -146,6 +148,7 @@ public class Player : MonoBehaviour
         JAnimT++;
         JumpBonusT--;
         walkT++;
+        deathT--;
 
         if (allowance == false)
         {
